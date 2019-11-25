@@ -31,7 +31,7 @@ import * as Blockly from 'blockly/core';
 import '../fields/BlocklyReactField';
 
 var testReactField = {
-  "type": "test_react_field",
+  "type": "print",
   "message0": "Print %1 %2",
   "args0": [
     {
@@ -45,12 +45,13 @@ var testReactField = {
       "check": "String"
     }
   ],
+  "previousStatement": null,
   "colour": 230,
   "tooltip": "",
   "helpUrl": ""
 };
 
-Blockly.Blocks['test_react_field'] = {
+Blockly.Blocks['print'] = {
   init: function() {
     this.jsonInit(testReactField);
     this.setStyle('loop_blocks');

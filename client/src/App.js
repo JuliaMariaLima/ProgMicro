@@ -29,15 +29,25 @@ import logo from './logo.svg';
 import BlocklyComponent, { Block, Value, Field, Shadow } from './Blockly';
 
 import BlocklyJS from 'blockly/javascript';
+import axios from 'axios';
+
 
 import './blocks/customblocks';
 import './generator/generator';
+
+const URL = 'http://f6896f7a.ngrok.io'
 
 class App extends React.Component {
 
   generateCode = () => {
     var code = BlocklyJS.workspaceToCode(this.simpleWorkspace.workspace);
+    code = JSON.stringify(code)
     console.log(code);
+    axios.post(`${URL}/seunome`, code)
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      }).catch((error) => console.log(error))
   }
 
   render() {
@@ -55,7 +65,7 @@ class App extends React.Component {
 <block type="controls_ifelse" x="0" y="0"></block>
 </xml>
       `}>
-            <Block type="test_react_field" />
+            <Block type="print" />
             <Block type="controls_ifelse" />
             <Block type="logic_compare" />
             <Block type="logic_operation" />
