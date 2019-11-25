@@ -32,16 +32,22 @@ import '../fields/BlocklyReactField';
 
 var testReactField = {
   "type": "test_react_field",
-  "message0": "custom field %1",
+  "message0": "Print %1 %2",
   "args0": [
     {
-      "type": "field_react_component",
-      "name": "FIELD",
-      "text": "Click me"
+      "type": "field_input",
+      "name": "print",
+      "text": "fill this space"
     },
+    {
+      "type": "input_value",
+      "name": "NAME",
+      "check": "String"
+    }
   ],
-  "previousStatement": null,
-  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
 };
 
 Blockly.Blocks['test_react_field'] = {

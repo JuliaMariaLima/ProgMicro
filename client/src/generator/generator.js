@@ -27,6 +27,12 @@
 import * as Blockly from 'blockly/core';
 import 'blockly/javascript';
 
-Blockly.JavaScript['test_react_field'] = function (block) {
-    return 'console.log(\'custom block\');\n';
-};
+Blockly.JavaScript['test_react_field'] = function(block) {
+    var text_print = block.getFieldValue('print');
+    var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+    // TODO: Assemble JavaScript into code variable.
+    var code = '...;\n';
+    console.log(text_print);
+    return code;
+  };
+  
