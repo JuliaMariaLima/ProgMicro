@@ -1,6 +1,6 @@
 /**
  * @license
- * 
+ *
  * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,33 +21,32 @@
  * @author samelh@google.com (Sam El-Husseini)
  */
 
-import React from 'react';
-import './App.css';
+import React from 'react'
+import './App.css'
 
-import logo from './logo.svg';
+import logo from './logo.svg'
 
-import BlocklyComponent, { Block, Value, Field, Shadow } from './Blockly';
+import BlocklyComponent, { Block, Value, Field, Shadow } from './Blockly'
 
-import BlocklyJS from 'blockly/javascript';
-import axios from 'axios';
+import BlocklyJS from 'blockly/javascript'
+import axios from 'axios'
 
-
-import './blocks/customblocks';
-import './generator/generator';
+import './blocks/customblocks'
+import './generator/generator'
 
 const URL = 'http://f6896f7a.ngrok.io'
 
 class App extends React.Component {
-
   generateCode = () => {
-    var code = BlocklyJS.workspaceToCode(this.simpleWorkspace.workspace);
-    code = JSON.stringify(code)
-    console.log(code);
-    axios.post(`${URL}/seunome`, code)
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      }).catch((error) => console.log(error))
+    var code = BlocklyJS.workspaceToCode(this.simpleWorkspace.workspace)
+
+    return fetch('/sendCode/', {
+      method: 'POST',
+      body: JSON.stringify({ code }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
   }
 
   render() {
@@ -56,11 +55,15 @@ class App extends React.Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <button onClick={this.generateCode}>Convert</button>
-          <BlocklyComponent ref={e => this.simpleWorkspace = e} readOnly={false} move={{
-            scrollbars: true,
-            drag: true,
-            wheel: true
-          }} initialXml={`
+          <BlocklyComponent
+            ref={e => (this.simpleWorkspace = e)}
+            readOnly={false}
+            move={{
+              scrollbars: true,
+              drag: true,
+              wheel: true,
+            }}
+            initialXml={`
 <xml xmlns="http://www.w3.org/1999/xhtml">
 <block type="controls_ifelse" x="0" y="0"></block>
 </xml>
@@ -91,8 +94,8 @@ class App extends React.Component {
           </BlocklyComponent>
         </header>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
