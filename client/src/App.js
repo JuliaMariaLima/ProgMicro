@@ -29,7 +29,7 @@ import logo from './logo.svg'
 import BlocklyComponent, { Block, Value, Field, Shadow } from './Blockly'
 
 import BlocklyJS from 'blockly/javascript'
-import axios from 'axios'
+import { translateCode } from './utils/codeUtils'
 
 import './blocks/customblocks'
 import './generator/generator'
@@ -38,11 +38,12 @@ const URL = 'http://f6896f7a.ngrok.io'
 
 class App extends React.Component {
   generateCode = () => {
-    var code = BlocklyJS.workspaceToCode(this.simpleWorkspace.workspace)
-
+    console.log(this.simpleWorkspace.workspace.getAllBlocks())
+    var ciclos = translateCode(this.simpleWorkspace.workspace)
+    console.log(ciclos)
     return fetch('/sendCode/', {
       method: 'POST',
-      body: JSON.stringify({ code }),
+      body: JSON.stringify({ ciclos }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -65,10 +66,12 @@ class App extends React.Component {
             }}
             initialXml={`
 <xml xmlns="http://www.w3.org/1999/xhtml">
-<block type="controls_ifelse" x="0" y="0"></block>
+
 </xml>
       `}>
             <Block type="print" />
+            <Block type="girar" />
+            <Block type="mover" />
             <Block type="controls_ifelse" />
             <Block type="logic_compare" />
             <Block type="logic_operation" />

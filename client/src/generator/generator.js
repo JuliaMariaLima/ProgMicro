@@ -1,6 +1,6 @@
 /**
  * @license
- * 
+ *
  * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,15 +24,44 @@
 // More on generating code:
 // https://developers.google.com/blockly/guides/create-custom-blocks/generating-code
 
-import * as Blockly from 'blockly/core';
-import 'blockly/javascript';
+import * as Blockly from 'blockly/core'
+import 'blockly/javascript'
 
 Blockly.JavaScript['print'] = function(block) {
-    var text_print = block.getFieldValue('print');
-    var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-    // TODO: Assemble JavaScript into code variable.
-    var code = `console.log(${text_print});\n`;
-    console.log(text_print);
-    return code;
-  };
-  
+  var text_print = block.getFieldValue('print')
+  var value_name = Blockly.JavaScript.valueToCode(
+    block,
+    'NAME',
+    Blockly.JavaScript.ORDER_ATOMIC
+  )
+  // TODO: Assemble JavaScript into code variable.
+  var code = `console.log(${text_print});\n`
+  console.log(text_print)
+  return code
+}
+
+Blockly.JavaScript['girar'] = function(block) {
+  var dropdown_direction = block.getFieldValue('direction')
+  var number_duracao = block.getFieldValue('duracao')
+  console.log(dropdown_direction)
+  console.log(number_duracao)
+  // TODO: Assemble JavaScript into code variable.
+  var code = { tipo: dropdown_direction, duracao: number_duracao }
+  return code
+}
+
+Blockly.JavaScript['mover'] = function(block) {
+  var dropdown_direction = block.getFieldValue('direction')
+  var dropdown_speed = block.getFieldValue('speed')
+  var number_duracao = block.getFieldValue('duracao')
+  console.log(dropdown_direction)
+  console.log(dropdown_speed)
+  console.log(number_duracao)
+  // TODO: Assemble JavaScript into code variable.
+  var code = {
+    tipo: dropdown_direction,
+    velocidade: dropdown_speed,
+    duracao: number_duracao,
+  }
+  return code
+}
