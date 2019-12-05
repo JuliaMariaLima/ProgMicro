@@ -14,19 +14,17 @@ class Path extends Component {
     const canvas = this.refs.canvas
     const ctx = canvas.getContext('2d')
 
-    var gradient = ctx.createLinearGradient(0, 0, WIDTH, 0)
-    gradient.addColorStop(0, 'red')
-    gradient.addColorStop(1, 'blue')
+    var gradient = ctx.createLinearGradient(WIDTH / 2, 0, WIDTH / 2, HEIGHT)
+    gradient.addColorStop(0, '#B50571')
+    gradient.addColorStop(1, '#1e08bd')
 
     ctx.beginPath()
     ctx.moveTo(100, 150)
     ctx.lineTo(450, 50)
     ctx.lineTo(450, 400)
     ctx.lineTo(100, 150)
-    ctx.lineTo(450, 50)
-    ctx.lineWidth = 10
-
-    // set line color
+    ctx.closePath()
+    ctx.lineWidth = 5
     ctx.strokeStyle = gradient
     ctx.stroke()
   }

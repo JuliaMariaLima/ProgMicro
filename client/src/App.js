@@ -78,7 +78,7 @@ class App extends React.Component {
 
     console.log('APP.JS rerender')
     return (
-      <div className="module-border-wrap ">
+      <div className="module-border-wrap MovingGradient">
         <div className="module flex-row">
           <BlocklyComponent {...props}>
             <Block type="print" />
