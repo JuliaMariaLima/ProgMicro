@@ -1,26 +1,3 @@
-/**
- * @license
- *
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/**
- * @fileoverview Main React component that includes the Blockly component.
- * @author samelh@google.com (Sam El-Husseini)
- */
-
 import React from 'react'
 import './App.css'
 
@@ -30,45 +7,79 @@ import BlocklyComponent, { Block, Value, Field, Shadow } from './Blockly'
 
 import BlocklyJS from 'blockly/javascript'
 import { translateCode } from './utils/codeUtils'
+import { Button } from 'react-bootstrap'
 
 import './blocks/customblocks'
 import './generator/generator'
 
 const URL = 'http://f6896f7a.ngrok.io'
+const options = {
+  collapse: false,
+  comments: false,
+  disable: false,
+  maxBlocks: Infinity,
+  trashcan: true,
+  horizontalLayout: false,
+  toolboxPosition: 'start',
+  css: true,
+  media: 'https://blockly-demo.appspot.com/static/media/',
+  rtl: false,
+  scrollbars: false,
+  sounds: true,
+  oneBasedIndex: false,
+  grid: {
+    spacing: 20,
+    length: 1,
+    colour: '#888',
+    snap: true,
+  },
+}
 
 class App extends React.Component {
-  generateCode = () => {
-    console.log(this.simpleWorkspace.workspace.getAllBlocks())
-    var ciclos = translateCode(this.simpleWorkspace.workspace)
-    console.log(ciclos)
-    return fetch('/sendCode/', {
+  ciclos = []
+  componentDidMount() {
+    this.simpleWorkspace.workspace.addChangeListener(this.change)
+  }
+
+  generateCode = () =>
+    fetch('/sendCode/', {
       method: 'POST',
-      body: JSON.stringify({ ciclos }),
+      body: JSON.stringify({ ciclos: this.ciclos }),
       headers: {
         'Content-Type': 'application/json',
       },
     })
+
+  change = event => {
+    if (event.type === 'move') {
+      this.ciclos = translateCode(this.simpleWorkspace.workspace)
+      console.log(this.ciclos)
+    }
   }
 
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <button onClick={this.generateCode}>Convert</button>
-          <BlocklyComponent
-            ref={e => (this.simpleWorkspace = e)}
-            readOnly={false}
-            move={{
-              scrollbars: true,
-              drag: true,
-              wheel: true,
-            }}
-            initialXml={`
+    const props = {
+      className: 'workspace',
+      ref: e => (this.simpleWorkspace = e),
+      readOnly: false,
+      move: {
+        scrollbars: false,
+        drag: true,
+        wheel: true,
+      },
+      initialXml: `
 <xml xmlns="http://www.w3.org/1999/xhtml">
 
 </xml>
-      `}>
+`,
+      ...options,
+    }
+
+    console.log('APP.JS rerender')
+    return (
+      <div className="module-border-wrap ">
+        <div className="module flex-row">
+          <BlocklyComponent {...props}>
             <Block type="print" />
             <Block type="girar" />
             <Block type="mover" />
@@ -95,7 +106,11 @@ class App extends React.Component {
               </Value>
             </Block>
           </BlocklyComponent>
-        </header>
+
+          <div className="items-center">
+            <Button onClick={this.generateCode}>SEND</Button>
+          </div>
+        </div>
       </div>
     )
   }

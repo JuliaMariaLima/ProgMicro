@@ -60,7 +60,7 @@ Blockly.JavaScript['mover'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
   var code = {
     tipo: dropdown_direction,
-    velocidade: dropdown_speed,
+    velocidade: Number(dropdown_speed),
     duracao: number_duracao,
   }
   return code
