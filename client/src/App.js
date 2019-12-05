@@ -8,6 +8,7 @@ import BlocklyComponent, { Block, Value, Field, Shadow } from './Blockly'
 import BlocklyJS from 'blockly/javascript'
 import { translateCode } from './utils/codeUtils'
 import { Button } from 'react-bootstrap'
+import Path from './components/Path'
 
 import './blocks/customblocks'
 import './generator/generator'
@@ -107,8 +108,11 @@ class App extends React.Component {
             </Block>
           </BlocklyComponent>
 
-          <div className="items-center">
-            <Button onClick={this.generateCode}>SEND</Button>
+          <div className="flex flex-column items-center justify-content-around w-40">
+            <Path ciclos={this.ciclos} />
+            <Button size="lg" variation="primary" onClick={this.generateCode}>
+              SEND
+            </Button>
           </div>
         </div>
       </div>
