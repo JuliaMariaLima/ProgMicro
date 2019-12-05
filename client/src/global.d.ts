@@ -2,6 +2,7 @@ interface movimento {
   tipo: string
   duracao: number
   velocidade: number
+  degrees: number
 }
 
 interface ciclo {

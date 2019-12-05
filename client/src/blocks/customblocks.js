@@ -84,7 +84,7 @@ var girar = {
   inputsInline: true,
   previousStatement: null,
   nextStatement: null,
-  colour: 65,
+  colour: '65',
   tooltip: '',
   helpUrl: '',
 }

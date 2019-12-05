@@ -1,6 +1,6 @@
 /**
  * @license
- * 
+ *
  * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,50 +21,65 @@
  * @author samelh@google.com (Sam El-Husseini)
  */
 
-import React from 'react';
-import './BlocklyComponent.css';
+import React from 'react'
 
-import Blockly from 'blockly/core';
-import locale from 'blockly/msg/en';
-import 'blockly/blocks';
+import Blockly from 'blockly/core'
+import locale from 'blockly/msg/en'
+import 'blockly/blocks'
 
-Blockly.setLocale(locale);
+Blockly.setLocale(locale)
 
 class BlocklyComponent extends React.Component {
+  componentDidMount() {
+    const { initialXml, children, ...rest } = this.props
+    this.primaryWorkspace = Blockly.inject(this.blocklyDiv, {
+      toolbox: this.toolbox,
+      ...rest,
+    })
 
-    componentDidMount() {
-        const { initialXml, children, ...rest } = this.props;
-        this.primaryWorkspace = Blockly.inject(
-            this.blocklyDiv,
-            {
-                toolbox: this.toolbox,
-                ...rest
-            },
-        );
-
-        if (initialXml) {
-            Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(initialXml), this.primaryWorkspace);
-        }
+    if (initialXml) {
+      Blockly.Xml.domToWorkspace(
+        Blockly.Xml.textToDom(initialXml),
+        this.primaryWorkspace
+      )
     }
+  }
 
-    get workspace() {
-        return this.primaryWorkspace;
-    }
+  get workspace() {
+    return this.primaryWorkspace
+  }
 
-    setXml(xml) {
-        Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), this.primaryWorkspace);
-    }
+  setXml(xml) {
+    console.log('setXML')
 
-    render() {
-        const { children } = this.props;
+    Blockly.Xml.domToWorkspace(
+      Blockly.Xml.textToDom(xml),
+      this.primaryWorkspace
+    )
+  }
 
-        return <React.Fragment>
-            <div ref={e => this.blocklyDiv = e} id="blocklyDiv" />
-            <xml xmlns="https://developers.google.com/blockly/xml" is="blockly" style={{ display: 'none' }} ref={(toolbox) => { this.toolbox = toolbox; }}>
-                {children}
-            </xml>
-        </React.Fragment>;
-    }
+  render() {
+    const { children, className } = this.props
+    console.log('rerender')
+    return (
+      <React.Fragment>
+        <div
+          ref={e => (this.blocklyDiv = e)}
+          id="blocklyDiv"
+          className={className}
+        />
+        <xml
+          xmlns="https://developers.google.com/blockly/xml"
+          is="blockly"
+          style={{ display: 'none' }}
+          ref={toolbox => {
+            this.toolbox = toolbox
+          }}>
+          {children}
+        </xml>
+      </React.Fragment>
+    )
+  }
 }
 
-export default BlocklyComponent;
+export default BlocklyComponent
