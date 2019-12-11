@@ -1,11 +1,4 @@
 .module-border-wrap {
-  /* background: linear-gradient(
-    to bottom right,
-    red,
-    rgb(255, 0, 149),
-    purple,
-    blue
-  ); */
   padding: 20px;
   height: 100vh;
   width: 100vw;

@@ -5,10 +5,8 @@ import logo from './logo.svg'
 
 import BlocklyComponent, { Block, Value, Field, Shadow } from './Blockly'
 
-import BlocklyJS from 'blockly/javascript'
 import { translateCode } from './utils/codeUtils'
 import { Button } from 'react-bootstrap'
-import Path from './components/Path'
 
 import './blocks/customblocks'
 import './generator/generator'
@@ -37,28 +35,39 @@ const options = {
 }
 
 class App extends React.Component {
-  ciclos = []
+  state = {
+    ciclos: [],
+  }
   componentDidMount() {
     this.simpleWorkspace.workspace.addChangeListener(this.change)
   }
 
-  generateCode = () =>
-    fetch('/sendCode/', {
+  generateCode = () => {
+    const movimentos = JSON.parse(
+      translateCode(this.simpleWorkspace.workspace.getAllBlocks())
+    )
+    console.log(this.simpleWorkspace.workspace.getTopBlocks())
+    return fetch('/sendCode/', {
       method: 'POST',
-      body: JSON.stringify({ ciclos: this.ciclos }),
+      body: JSON.stringify({ movimentos }),
       headers: {
         'Content-Type': 'application/json',
       },
     })
+  }
 
   change = event => {
     if (event.type === 'move') {
-      this.ciclos = translateCode(this.simpleWorkspace.workspace)
-      console.log(this.ciclos)
+      this.ciclos = JSON.parse(
+        translateCode(this.simpleWorkspace.workspace.getAllBlocks())
+      )
+      // console.log(this.ciclos)
+      this.setState({ ciclos: this.ciclos })
     }
   }
 
   render() {
+    const { ciclos } = this.state
     const props = {
       className: 'workspace',
       ref: e => (this.simpleWorkspace = e),
@@ -76,7 +85,6 @@ class App extends React.Component {
       ...options,
     }
 
-    console.log('APP.JS rerender')
     return (
       <div className="module-border-wrap MovingGradient">
         <div className="module flex-row">
@@ -84,6 +92,7 @@ class App extends React.Component {
             <Block type="print" />
             <Block type="girar" />
             <Block type="mover" />
+            <Block type="loop" />
             <Block type="controls_ifelse" />
             <Block type="logic_compare" />
             <Block type="logic_operation" />
@@ -109,7 +118,6 @@ class App extends React.Component {
           </BlocklyComponent>
 
           <div className="flex flex-column items-center justify-content-around w-40">
-            <Path ciclos={this.ciclos} />
             <Button size="lg" variation="primary" onClick={this.generateCode}>
               SEND
             </Button>

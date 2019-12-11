@@ -1,19 +1,15 @@
 import * as Blockly from 'blockly/core'
 import 'blockly/javascript'
 
-export function translateCode(workspace) {
-  const blocks = workspace.getAllBlocks()
-
-  const cliclo = {
-    movimentos: [],
-    vezes: 1,
-  }
+export function translateCode(blocks) {
+  const movimentos = []
 
   blocks.forEach(block => {
     // TODO: condicional para while e for e if else
-    const movimento = Blockly.JavaScript[block.type](block)
-    cliclo.movimentos.push(movimento)
+    const movimento = JSON.parse(Blockly.JavaScript[block.type](block))
+    movimentos.push(movimento)
   })
 
-  return [cliclo]
+  // console.log(movimentos)
+  return JSON.stringify(movimentos)
 }

@@ -45,7 +45,7 @@ var testReactField = {
     },
   ],
   previousStatement: null,
-  colour: 230,
+  colour: 345,
   tooltip: '',
   helpUrl: '',
 }
@@ -53,38 +53,34 @@ var testReactField = {
 Blockly.Blocks['print'] = {
   init: function() {
     this.jsonInit(testReactField)
-    this.setStyle('loop_blocks')
   },
 }
 
 var girar = {
-  type: 'girar',
-  message0: 'Girar para a  %1 %2 por %3 s',
+  type: 'turn',
+  message0: 'Girar %1 %2 para a %3',
   args0: [
     {
-      type: 'field_dropdown',
-      name: 'direction',
-      options: [
-        ['direita', 'direita'],
-        ['esquerda', 'esquerda'],
-      ],
+      type: 'field_angle',
+      name: 'NAME',
+      angle: 90,
     },
     {
       type: 'input_dummy',
     },
     {
-      type: 'field_number',
-      name: 'duracao',
-      value: 1,
-      min: 1,
-      max: 10,
-      precision: 1,
+      type: 'field_dropdown',
+      name: 'direcao',
+      options: [
+        ['direita', 'direita'],
+        ['esquerda', 'esquerda'],
+      ],
     },
   ],
   inputsInline: true,
   previousStatement: null,
   nextStatement: null,
-  colour: '65',
+  colour: 345,
   tooltip: '',
   helpUrl: '',
 }
@@ -92,7 +88,6 @@ var girar = {
 Blockly.Blocks['girar'] = {
   init: function() {
     this.jsonInit(girar)
-    this.setStyle('loop_blocks')
   },
 }
 
@@ -134,7 +129,7 @@ var mover = {
   inputsInline: true,
   previousStatement: null,
   nextStatement: null,
-  colour: 65,
+  colour: 345,
   tooltip: '',
   helpUrl: '',
 }
@@ -142,6 +137,37 @@ var mover = {
 Blockly.Blocks['mover'] = {
   init: function() {
     this.jsonInit(mover)
-    this.setStyle('loop_blocks')
+  },
+}
+
+var loop = {
+  type: 'turn',
+  message0: 'Repetir %1 vez (es) %2 %3',
+  args0: [
+    {
+      type: 'field_input',
+      name: 'vezes',
+      text: '1',
+    },
+    {
+      type: 'input_dummy',
+    },
+    {
+      type: 'input_statement',
+      name: 'movimentos',
+    },
+  ],
+  inputsInline: true,
+  previousStatement: null,
+  nextStatement: null,
+  colour: 345,
+  tooltip: '',
+  helpUrl: '',
+}
+
+Blockly.Blocks['loop'] = {
+  init: function() {
+    this.jsonInit(loop)
+    //this.setStyle('loop_blocks')
   },
 }

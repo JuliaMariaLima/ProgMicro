@@ -6,7 +6,7 @@ var axios = require('axios')
 // create application/json parser
 var jsonParser = bodyParser.json()
 
-var URL = 'http://8b08682b.ngrok.io'
+var URL = 'http://105c6f26.ngrok.io'
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 })
 
 router.get('/teste', function(req, res, next) {
-  console.log('teste')
+  // console.log('teste')
   res.render('index', { title: 'Express' })
 })
 

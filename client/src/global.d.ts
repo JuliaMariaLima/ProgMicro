@@ -2,14 +2,11 @@ interface movimento {
   tipo: string
   duracao: number
   velocidade: number
-  degrees: number
-}
-
-interface ciclo {
+  angulo: number
   movimentos: movimento[]
   vezes: number
 }
 
 interface Comandos {
-  ciclos: ciclo[]
+  movimentos: movimento[]
 }

@@ -50,7 +50,7 @@ class BlocklyComponent extends React.Component {
   }
 
   setXml(xml) {
-    console.log('setXML')
+    // console.log('setXML')
 
     Blockly.Xml.domToWorkspace(
       Blockly.Xml.textToDom(xml),
@@ -60,7 +60,7 @@ class BlocklyComponent extends React.Component {
 
   render() {
     const { children, className } = this.props
-    console.log('rerender')
+    // console.log('rerender')
     return (
       <React.Fragment>
         <div
