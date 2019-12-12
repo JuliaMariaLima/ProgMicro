@@ -10,9 +10,10 @@
     "concurrently": "^5.0.0"
   },
   "scripts": {
-    "client": "cd client && npm start",
-    "server": "cd server && npm start",
-    "start": "concurrently \"npm run server\" \"npm run client\""
+    "client": "cd client && yarn install && npm start",
+    "server": "cd server && yarn install && npm start",
+    "root": "yarn install",
+    "start": "concurrently  \"npm run root\" \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
