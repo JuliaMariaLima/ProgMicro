@@ -14,7 +14,6 @@ router.get('/', function(req, res, next) {
 })
 
 router.get('/teste', function(req, res, next) {
-  // console.log('teste')
   res.render('index', { title: 'Express' })
 })
 

@@ -5,7 +5,7 @@ import logo from './logo.svg'
 
 import BlocklyComponent, { Block, Value, Field, Shadow } from './Blockly'
 
-import { translateCode } from './utils/codeUtils'
+import { translateCode, workspaceToCode } from './utils/codeUtils'
 import { Button } from 'react-bootstrap'
 
 import './blocks/customblocks'
@@ -46,7 +46,10 @@ class App extends React.Component {
     const movimentos = JSON.parse(
       translateCode(this.simpleWorkspace.workspace.getAllBlocks())
     )
-    console.log(this.simpleWorkspace.workspace.getTopBlocks())
+
+    console.log(workspaceToCode(this.simpleWorkspace.workspace))
+
+    //console.log(movimentos)
     return fetch('/sendCode/', {
       method: 'POST',
       body: JSON.stringify({ movimentos }),
@@ -61,7 +64,6 @@ class App extends React.Component {
       this.ciclos = JSON.parse(
         translateCode(this.simpleWorkspace.workspace.getAllBlocks())
       )
-      // console.log(this.ciclos)
       this.setState({ ciclos: this.ciclos })
     }
   }
@@ -93,6 +95,7 @@ class App extends React.Component {
             <Block type="girar" />
             <Block type="mover" />
             <Block type="loop" />
+            <Block type="se" />
             <Block type="controls_ifelse" />
             <Block type="logic_compare" />
             <Block type="logic_operation" />

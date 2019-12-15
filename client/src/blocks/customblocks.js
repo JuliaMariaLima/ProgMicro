@@ -29,30 +29,26 @@ import * as Blockly from 'blockly/core'
 // Since we're using json to initialize the field, we'll need to import it.
 import '../fields/BlocklyReactField'
 
-var testReactField = {
+var print = {
   type: 'print',
-  message0: 'Print %1 %2',
+  message0: 'Imprima no console: %1',
   args0: [
     {
       type: 'field_input',
       name: 'print',
-      text: 'fill this space',
-    },
-    {
-      type: 'input_value',
-      name: 'NAME',
-      check: 'String',
+      text: 'esta mensagem',
     },
   ],
+  colour: 195,
   previousStatement: null,
-  colour: 345,
+  nextStatement: null,
   tooltip: '',
   helpUrl: '',
 }
 
 Blockly.Blocks['print'] = {
   init: function() {
-    this.jsonInit(testReactField)
+    this.jsonInit(print)
   },
 }
 
@@ -80,7 +76,7 @@ var girar = {
   inputsInline: true,
   previousStatement: null,
   nextStatement: null,
-  colour: 345,
+  colour: 195,
   tooltip: '',
   helpUrl: '',
 }
@@ -129,7 +125,7 @@ var mover = {
   inputsInline: true,
   previousStatement: null,
   nextStatement: null,
-  colour: 345,
+  colour: 195,
   tooltip: '',
   helpUrl: '',
 }
@@ -160,7 +156,7 @@ var loop = {
   inputsInline: true,
   previousStatement: null,
   nextStatement: null,
-  colour: 345,
+  colour: 330,
   tooltip: '',
   helpUrl: '',
 }
@@ -169,5 +165,34 @@ Blockly.Blocks['loop'] = {
   init: function() {
     this.jsonInit(loop)
     //this.setStyle('loop_blocks')
+  },
+}
+var se = {
+  type: 'se',
+  message0: 'Se %1 Então %2 Senão %3',
+  args0: [
+    {
+      type: 'input_value',
+      name: 'condicao',
+    },
+    {
+      type: 'input_statement',
+      name: 'entao',
+    },
+    {
+      type: 'input_statement',
+      name: 'senao',
+    },
+  ],
+  colour: 230,
+  previousStatement: null,
+  nextStatement: null,
+  tooltip: '',
+  helpUrl: '',
+}
+
+Blockly.Blocks['se'] = {
+  init: function() {
+    this.jsonInit(se)
   },
 }
