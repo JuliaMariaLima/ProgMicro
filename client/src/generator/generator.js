@@ -49,19 +49,35 @@ Blockly.JavaScript['loop'] = function(block) {
 }
 
 Blockly.JavaScript['se'] = function(block) {
-  var value_condicao = Blockly.JavaScript.valueToCode(
-    block,
-    'condicao',
-    Blockly.JavaScript.ORDER_ATOMIC
-  )
-  var statements_entao = blockToCode(block.childBlocks_[1])
-  var statements_senao = blockToCode(block.childBlocks_[2])
-
+  var value_condicao = blockToCode(block.childBlocks_[0])
+  var statements_satisfeita = blockToCode(block.childBlocks_[1])
+  var statements_insatisfeita = blockToCode(block.childBlocks_[2])
+  if (value_condicao.length) value_condicao = value_condicao.filter(Boolean)
+  console.log(value_condicao)
   var code = {
     tipo: 'se',
     condicao: value_condicao,
-    entao: statements_entao,
-    senao: statements_senao,
+    satisfeita: block.childBlocks_.length > 1 ? statements_satisfeita : [],
+    insatisfeita: block.childBlocks_.length > 2 ? statements_insatisfeita : [],
   }
+  return code
+}
+
+Blockly.JavaScript['distancia'] = function(block) {
+  var dropdown_operador = block.getFieldValue('operador')
+  var text_valor = block.getFieldValue('valor')
+
+  var code = {
+    variavel: 'distanca',
+    operador: dropdown_operador,
+    valor: text_valor,
+  }
+
+  return code
+}
+Blockly.JavaScript['and'] = function(block) {
+  console.log(block)
+  var code = blockToCode(block.childBlocks_[0])
+
   return code
 }

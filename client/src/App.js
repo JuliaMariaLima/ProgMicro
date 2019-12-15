@@ -43,11 +43,9 @@ class App extends React.Component {
   }
 
   generateCode = () => {
-    const movimentos = JSON.parse(
-      translateCode(this.simpleWorkspace.workspace.getAllBlocks())
-    )
+    const movimentos = workspaceToCode(this.simpleWorkspace.workspace)
 
-    console.log(workspaceToCode(this.simpleWorkspace.workspace))
+    console.log(movimentos)
 
     //console.log(movimentos)
     return fetch('/sendCode/', {
@@ -60,12 +58,10 @@ class App extends React.Component {
   }
 
   change = event => {
-    if (event.type === 'move') {
-      this.ciclos = JSON.parse(
-        translateCode(this.simpleWorkspace.workspace.getAllBlocks())
-      )
-      this.setState({ ciclos: this.ciclos })
-    }
+    // if (event.type === 'move') {
+    //   this.ciclos = workspaceToCode(this.simpleWorkspace.workspace)
+    //   this.setState({ ciclos: this.ciclos })
+    // }
   }
 
   render() {
@@ -96,7 +92,10 @@ class App extends React.Component {
             <Block type="mover" />
             <Block type="loop" />
             <Block type="se" />
-            <Block type="controls_ifelse" />
+            <Block type="and" />
+            <Block type="or" />
+            <Block type="distancia" />
+            {/* <Block type="controls_ifelse" />
             <Block type="logic_compare" />
             <Block type="logic_operation" />
             <Block type="controls_repeat_ext">
@@ -117,7 +116,7 @@ class App extends React.Component {
                   <Field name="VAR">text</Field>
                 </Block>
               </Value>
-            </Block>
+            </Block> */}
           </BlocklyComponent>
 
           <div className="flex flex-column items-center justify-content-around w-40">

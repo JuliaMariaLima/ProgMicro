@@ -5,6 +5,13 @@ interface movimento {
   angulo: number
   movimentos: movimento[]
   vezes: number
+  condicao: Condicao
+}
+
+interface Condicao {
+  variavel: string
+  valor: string
+  operador: string
 }
 
 interface Comandos {

@@ -55,22 +55,17 @@ export const blockToCode = (block, opt_thisOnly) => {
   // The current preferred method of accessing the block is through the second
   // argument to func.call, which becomes the first parameter to the generator.
   var code = func.call(block, block)
-  movimentos.push(code)
+
   if (Array.isArray(code)) {
     // Value blocks return tuples of code and operator order.
     if (!block.outputConnection) {
       throw TypeError('Expecting string from statement block: ' + block.type)
     }
-    return [code[0], code[1]]
-  }
+    movimentos.push(...code)
+  } else movimentos.push(code)
   const childs = [...block.childBlocks_]
   if (childs.length) {
     movimentos = [...movimentos, ...blockToCode(childs.pop())]
   }
   return movimentos
-}
-
-const injectId = function(msg, block) {
-  var id = block.id.replace(/\$/g, '$$$$') // Issue 251.
-  return msg.replace(/%1/g, "'" + id + "'")
 }

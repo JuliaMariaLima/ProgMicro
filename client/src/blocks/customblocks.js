@@ -156,7 +156,7 @@ var loop = {
   inputsInline: true,
   previousStatement: null,
   nextStatement: null,
-  colour: 330,
+  colour: 230,
   tooltip: '',
   helpUrl: '',
 }
@@ -177,11 +177,11 @@ var se = {
     },
     {
       type: 'input_statement',
-      name: 'entao',
+      name: 'satisfeita',
     },
     {
       type: 'input_statement',
-      name: 'senao',
+      name: 'insatisfeita',
     },
   ],
   colour: 230,
@@ -194,5 +194,92 @@ var se = {
 Blockly.Blocks['se'] = {
   init: function() {
     this.jsonInit(se)
+  },
+}
+
+var distancia = {
+  type: 'distancia',
+  message0: 'Distância %1 %2 %3 m',
+  args0: [
+    {
+      type: 'field_dropdown',
+      name: 'operador',
+      options: [
+        ['=', 'igual'],
+        ['>', 'maior que'],
+        ['<', 'menor que'],
+        ['≠\t', 'diferente'],
+      ],
+    },
+    {
+      type: 'input_dummy',
+    },
+    {
+      type: 'field_input',
+      name: 'valor',
+      text: '1',
+    },
+  ],
+  inputsInline: true,
+  output: null,
+  colour: 330,
+  tooltip: '',
+  helpUrl: '',
+}
+
+Blockly.Blocks['distancia'] = {
+  init: function() {
+    this.jsonInit(distancia)
+  },
+}
+var and = {
+  type: 'and',
+  message0: '%1 e %2',
+  args0: [
+    {
+      type: 'input_value',
+      name: 'one',
+    },
+    {
+      type: 'input_value',
+      name: 'two',
+    },
+  ],
+  inputsInline: true,
+  output: null,
+  colour: 120,
+  tooltip: '',
+  helpUrl: '',
+}
+
+Blockly.Blocks['and'] = {
+  init: function() {
+    this.jsonInit(and)
+  },
+}
+
+var or = {
+  type: 'or',
+  message0: '%1 ou %2',
+  args0: [
+    {
+      type: 'input_value',
+      name: 'one',
+    },
+    {
+      type: 'input_value',
+      name: 'two',
+    },
+  ],
+  inputsInline: true,
+  output: null,
+  colour: 120,
+  tooltip: '',
+  helpUrl: '',
+}
+
+Blockly.Blocks['or'] = {
+  init: function() {
+    this.jsonInit(or)
   },
 }
