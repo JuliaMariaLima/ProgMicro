@@ -1,17 +1,14 @@
 import React from 'react'
 import './App.css'
 
-import logo from './logo.svg'
+import BlocklyComponent, { Block } from './Blockly'
 
-import BlocklyComponent, { Block, Value, Field, Shadow } from './Blockly'
-
-import { translateCode, workspaceToCode } from './utils/codeUtils'
+import { workspaceToCode } from './utils/codeUtils'
 import { Button } from 'react-bootstrap'
 
 import './blocks/customblocks'
 import './generator/generator'
 
-const URL = 'http://f6896f7a.ngrok.io'
 const options = {
   collapse: false,
   comments: false,
@@ -65,7 +62,6 @@ class App extends React.Component {
   }
 
   render() {
-    const { ciclos } = this.state
     const props = {
       className: 'workspace',
       ref: e => (this.simpleWorkspace = e),
@@ -94,11 +90,10 @@ class App extends React.Component {
             <Block type="loop" />
             <Block type="se" />
             <Block type="and" />
-            <Block type="or" />
+            {/* <Block type="or" /> */}
             <Block type="distancia" />
             <Block type="distancia_percorrida" />
             <Block type="posicao_cor" />
-            <Block type="parar" />
 
             {/* <Block type="controls_ifelse" />
             <Block type="logic_compare" />

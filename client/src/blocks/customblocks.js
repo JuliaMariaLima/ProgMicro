@@ -89,7 +89,7 @@ Blockly.Blocks['girar'] = {
 
 var mover = {
   type: 'mover',
-  message0: 'Ir para %1 %2 %3 %4 por %5 s',
+  message0: 'Ir para %1 %2 %3 %4 por %5 m',
   args0: [
     {
       type: 'field_dropdown',
@@ -115,11 +115,11 @@ var mover = {
     },
     {
       type: 'field_number',
-      name: 'duracao',
+      name: 'distancia',
       value: 1,
-      min: 1,
+      min: 0,
       max: 10,
-      precision: 1,
+      precision: 0.1,
     },
   ],
   inputsInline: true,

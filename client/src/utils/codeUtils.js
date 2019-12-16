@@ -67,13 +67,11 @@ export const blockToCode = (block, opt_thisOnly) => {
     }
     movimentos.push(...code)
   } else movimentos.push(code)
-  const childs = [...block.childBlocks_]
 
-  if (
-    (block.type === 'se' && childs.length > 3) ||
-    (block.type !== 'se' && childs.length)
-  ) {
-    movimentos = [...movimentos, ...blockToCode(childs.pop())]
+  var next = block.getNextBlock()
+
+  if (next) {
+    movimentos = [...movimentos, ...blockToCode(next)]
   }
   return movimentos
 }
