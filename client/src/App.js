@@ -77,7 +77,8 @@ class App extends React.Component {
       },
       initialXml: `
 <xml xmlns="http://www.w3.org/1999/xhtml">
-
+<block type="programa" x="100" y="100">
+</block>
 </xml>
 `,
       ...options,
@@ -95,6 +96,8 @@ class App extends React.Component {
             <Block type="and" />
             <Block type="or" />
             <Block type="distancia" />
+            <Block type="parar" />
+
             {/* <Block type="controls_ifelse" />
             <Block type="logic_compare" />
             <Block type="logic_operation" />

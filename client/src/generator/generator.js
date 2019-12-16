@@ -1,7 +1,7 @@
 import * as Blockly from 'blockly/core'
 import 'blockly/javascript'
 
-import { blockToCode } from '../utils/codeUtils'
+import { blockToCode, translateCode } from '../utils/codeUtils'
 
 Blockly.JavaScript['print'] = function(block) {
   var text_print = block.getFieldValue('print')
@@ -80,4 +80,26 @@ Blockly.JavaScript['and'] = function(block) {
   var code = blockToCode(block.childBlocks_[0])
 
   return code
+}
+Blockly.JavaScript['programa'] = function(block) {
+  var movimentos = []
+  var checkbox_cor_selecionada =
+    block.getFieldValue('cor_selecionada') == 'TRUE'
+  var dropdown_cor = block.getFieldValue('cor')
+
+  block.childBlocks_.forEach(child => {
+    var mov = blockToCode(child)
+    movimentos.push(...mov)
+  })
+
+  var code = {
+    movimentos,
+    cor: checkbox_cor_selecionada ? dropdown_cor : undefined,
+  }
+  return code
+}
+Blockly.JavaScript['parar'] = function(block) {
+  return {
+    tipo: 'parar',
+  }
 }

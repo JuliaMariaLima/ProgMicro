@@ -15,11 +15,15 @@ export function translateCode(blocks) {
 
 export const workspaceToCode = workspace => {
   var blocks = workspace.getTopBlocks(true)
-  var code = []
-  for (var i = 0, block; (block = blocks[i]); i++) {
-    var line = blockToCode(block)
-    code.push(...line)
+
+  if (blocks[0].type === 'programa') {
+    var code = Blockly.JavaScript[blocks[0].type](blocks[0])
   }
+  // var code = []
+  // for (var i = 0, block; (block = blocks[i]); i++) {
+  //   var line = blockToCode(block)
+  //   code.push(...line)
+  // }
   // code = code.join('\n') // Blank line between each section.
   // code = this.finish(code)
   // // Final scrubbing of whitespace.

@@ -283,3 +283,75 @@ Blockly.Blocks['or'] = {
     this.jsonInit(or)
   },
 }
+var programa = {
+  type: 'programa',
+  message0: 'Programa %1 %2 %3 Selecionar cor: %4 %5',
+  args0: [
+    {
+      type: 'field_image',
+      src:
+        'https://cdn2.iconfinder.com/data/icons/flags-40/50/1F3F3-white-flag-512.png',
+      width: 40,
+      height: 25,
+      alt: '*',
+      flipRtl: false,
+    },
+    {
+      type: 'input_dummy',
+      align: 'CENTRE',
+    },
+    {
+      type: 'input_statement',
+      name: 'movs',
+    },
+    {
+      type: 'field_checkbox',
+      name: 'cor_selecionada',
+      checked: false,
+    },
+    {
+      type: 'field_dropdown',
+      name: 'cor',
+      options: [
+        ['Vermelho', 'vermelho'],
+        ['Laranja', 'laranja'],
+        ['Amarelo', 'amarelo'],
+        ['Verde', 'verde'],
+        ['Azul', 'azul'],
+      ],
+    },
+  ],
+  colour: 135,
+  tooltip: '',
+  helpUrl: '',
+}
+Blockly.Blocks['programa'] = {
+  init: function() {
+    this.jsonInit(programa)
+  },
+}
+var parar = {
+  type: 'parar',
+  lastDummyAlign0: 'CENTRE',
+  message0: 'Parar %1',
+  args0: [
+    {
+      type: 'field_image',
+      src: 'http://pngimg.com/uploads/sign_stop/sign_stop_PNG25622.png',
+      width: 25,
+      height: 25,
+      alt: '*',
+      flipRtl: false,
+    },
+  ],
+  previousStatement: null,
+  colour: 0,
+  tooltip: '',
+  helpUrl: '',
+}
+
+Blockly.Blocks['parar'] = {
+  init: function() {
+    this.jsonInit(parar)
+  },
+}

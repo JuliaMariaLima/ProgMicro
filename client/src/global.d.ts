@@ -16,4 +16,5 @@ interface Condicao {
 
 interface Comandos {
   movimentos: movimento[]
+  cor_selecionada: string
 }
