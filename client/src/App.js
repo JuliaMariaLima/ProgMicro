@@ -23,7 +23,7 @@ const options = {
   css: true,
   media: 'https://blockly-demo.appspot.com/static/media/',
   rtl: false,
-  scrollbars: false,
+  scrollbars: true,
   sounds: true,
   oneBasedIndex: false,
   grid: {
@@ -31,6 +31,9 @@ const options = {
     length: 1,
     colour: '#888',
     snap: true,
+  },
+  zoom: {
+    startScale: 0.85,
   },
 }
 
@@ -64,7 +67,7 @@ class App extends React.Component {
     //console.log(movimentos)
     return fetch('/sendCode/', {
       method: 'POST',
-      body: JSON.stringify({ movimentos }),
+      body: JSON.stringify(movimentos),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -100,6 +103,7 @@ class App extends React.Component {
             <Block type="girar" />
             <Block type="mover" />
             <Block type="loop" />
+            <Block type="enquanto" />
             <Block type="se" />
             <Block type="and" />
             {/* <Block type="or" /> */}

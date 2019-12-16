@@ -277,6 +277,7 @@ var posicao_cor = {
       options: [
         ['esquerda', 'esquerda'],
         ['direita', 'direita'],
+        ['frente', 'frente'],
       ],
     },
   ],
@@ -315,6 +316,31 @@ var and = {
 Blockly.Blocks['and'] = {
   init: function() {
     this.jsonInit(and)
+  },
+}
+var enquanto = {
+  type: 'enquanto',
+  message0: 'Enquanto: %1 Faça: %2',
+  args0: [
+    {
+      type: 'input_value',
+      name: 'condicao',
+    },
+    {
+      type: 'input_statement',
+      name: 'comandos',
+    },
+  ],
+  colour: 230,
+  previousStatement: null,
+  nextStatement: null,
+  tooltip: '',
+  helpUrl: '',
+}
+
+Blockly.Blocks['enquanto'] = {
+  init: function() {
+    this.jsonInit(enquanto)
   },
 }
 

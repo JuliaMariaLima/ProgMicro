@@ -37,8 +37,9 @@ Blockly.JavaScript['loop'] = function(block) {
   var statements_movimentos = blockToCode(movimentos)
 
   var code = {
-    vezes: text_vezes,
-    movimentos: statements_movimentos,
+    tipo: 'por',
+    vezes: Number(text_vezes),
+    comandos: statements_movimentos,
   }
   return code
 }
@@ -57,6 +58,21 @@ Blockly.JavaScript['se'] = function(block) {
     condicao: value_condicao,
     satisfeita: statements_satisfeita,
     insatisfeita: statements_insatisfeita,
+  }
+  return code
+}
+
+Blockly.JavaScript['enquanto'] = function(block) {
+  var condicao = block.getInputTargetBlock('condicao')
+  var comandos = block.getInputTargetBlock('comandos')
+
+  var value_condicao = condicao ? blockToCode(condicao) : []
+  var statements_comandos = comandos ? blockToCode(comandos) : []
+
+  var code = {
+    tipo: 'enquanto',
+    condicao: value_condicao,
+    comandos: statements_comandos,
   }
   return code
 }
