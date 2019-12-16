@@ -1,18 +1,13 @@
 import * as Blockly from 'blockly/core'
 import 'blockly/javascript'
 
-import { blockToCode, translateCode } from '../utils/codeUtils'
+import { blockToCode } from '../utils/codeUtils'
 
 Blockly.JavaScript['print'] = function(block) {
   var text_print = block.getFieldValue('print')
-  var value_name = Blockly.JavaScript.valueToCode(
-    block,
-    'NAME',
-    Blockly.JavaScript.ORDER_ATOMIC
-  )
+  console.log(text_print)
   // TODO: Assemble JavaScript into code variable.
-  var code = `// console.log(${text_print});\n`
-  return code
+  return 'imprimir'
 }
 
 Blockly.JavaScript['girar'] = function(block) {
@@ -27,19 +22,19 @@ Blockly.JavaScript['girar'] = function(block) {
 Blockly.JavaScript['mover'] = function(block) {
   var dropdown_direction = block.getFieldValue('direction')
   var dropdown_speed = block.getFieldValue('speed')
-  var number_duracao = block.getFieldValue('duracao')
+  var number_distancia = block.getFieldValue('distancia')
   var code = {
     tipo: dropdown_direction,
     velocidade: Number(dropdown_speed),
-    duracao: number_duracao,
+    distancia: number_distancia,
   }
   return code
 }
 
 Blockly.JavaScript['loop'] = function(block) {
   var text_vezes = block.getFieldValue('vezes')
-  var childs = [...block.childBlocks_]
-  var statements_movimentos = blockToCode(childs[0])
+  var movimentos = block.getInputTargetBlock('movimentos')
+  var statements_movimentos = blockToCode(movimentos)
 
   var code = {
     vezes: text_vezes,
@@ -49,16 +44,19 @@ Blockly.JavaScript['loop'] = function(block) {
 }
 
 Blockly.JavaScript['se'] = function(block) {
-  var value_condicao = blockToCode(block.childBlocks_[0])
-  var statements_satisfeita = blockToCode(block.childBlocks_[1])
-  var statements_insatisfeita = blockToCode(block.childBlocks_[2])
-  if (value_condicao.length) value_condicao = value_condicao.filter(Boolean)
-  console.log(value_condicao)
+  var condicao = block.getInputTargetBlock('condicao')
+  var satisfeita = block.getInputTargetBlock('satisfeita')
+  var insatisfeita = block.getInputTargetBlock('insatisfeita')
+
+  var value_condicao = condicao ? blockToCode(condicao) : []
+  var statements_satisfeita = satisfeita ? blockToCode(satisfeita) : []
+  var statements_insatisfeita = insatisfeita ? blockToCode(insatisfeita) : []
+
   var code = {
     tipo: 'se',
     condicao: value_condicao,
-    satisfeita: block.childBlocks_.length > 1 ? statements_satisfeita : [],
-    insatisfeita: block.childBlocks_.length > 2 ? statements_insatisfeita : [],
+    satisfeita: statements_satisfeita,
+    insatisfeita: statements_insatisfeita,
   }
   return code
 }
@@ -100,14 +98,18 @@ Blockly.JavaScript['posicao_cor'] = function(block) {
 }
 Blockly.JavaScript['and'] = function(block) {
   console.log(block)
-  var code = blockToCode(block.childBlocks_[0])
+  var one = block.getInputTargetBlock('one')
+  var two = block.getInputTargetBlock('two')
 
-  return code
+  var code_one = blockToCode(one)
+  var code_two = blockToCode(two)
+
+  return [...code_one, ...code_two]
 }
 Blockly.JavaScript['programa'] = function(block) {
   var movimentos = []
   var checkbox_cor_selecionada =
-    block.getFieldValue('cor_selecionada') == 'TRUE'
+    block.getFieldValue('cor_selecionada') === 'TRUE'
   var dropdown_cor = block.getFieldValue('cor')
 
   block.childBlocks_.forEach(child => {
@@ -116,7 +118,7 @@ Blockly.JavaScript['programa'] = function(block) {
   })
 
   var code = {
-    movimentos,
+    comandos: movimentos,
     cor: checkbox_cor_selecionada ? dropdown_cor : undefined,
   }
   return code
