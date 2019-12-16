@@ -7,8 +7,8 @@ class VideoCamera(object):
     def __del__(self):
         self.video.release()
 
-    def get_frame(self):
+    def get_frame(self, num):
         success, image = self.video.read()
         ret, jpeg = cv2.imencode('.jpg', image)
-
+        cv2.imwrite('/tmp/images/image'+str(num)+'.jpg',image)
         return jpeg.tobytes()

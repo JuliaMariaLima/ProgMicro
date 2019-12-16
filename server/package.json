@@ -14,8 +14,7 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
-    "nodemon": "^2.0.1",
-    "socket.io": "^2.3.0"
+    "nodemon": "^2.0.1"
   },
   "main": "app.js",
   "devDependencies": {},
