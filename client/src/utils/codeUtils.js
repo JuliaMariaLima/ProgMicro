@@ -68,7 +68,11 @@ export const blockToCode = (block, opt_thisOnly) => {
     movimentos.push(...code)
   } else movimentos.push(code)
   const childs = [...block.childBlocks_]
-  if (childs.length) {
+
+  if (
+    (block.type === 'se' && childs.length > 3) ||
+    (block.type !== 'se' && childs.length)
+  ) {
     movimentos = [...movimentos, ...blockToCode(childs.pop())]
   }
   return movimentos
