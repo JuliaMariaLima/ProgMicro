@@ -37,8 +37,9 @@ Blockly.JavaScript['loop'] = function(block) {
   var statements_movimentos = blockToCode(movimentos)
 
   var code = {
-    vezes: text_vezes,
-    movimentos: statements_movimentos,
+    tipo: 'por',
+    vezes: Number(text_vezes),
+    comandos: statements_movimentos,
   }
   return code
 }
@@ -61,14 +62,29 @@ Blockly.JavaScript['se'] = function(block) {
   return code
 }
 
+Blockly.JavaScript['enquanto'] = function(block) {
+  var condicao = block.getInputTargetBlock('condicao')
+  var comandos = block.getInputTargetBlock('comandos')
+
+  var value_condicao = condicao ? blockToCode(condicao) : []
+  var statements_comandos = comandos ? blockToCode(comandos) : []
+
+  var code = {
+    tipo: 'enquanto',
+    condicao: value_condicao,
+    comandos: statements_comandos,
+  }
+  return code
+}
+
 Blockly.JavaScript['distancia'] = function(block) {
   var dropdown_operador = block.getFieldValue('operador')
   var text_valor = block.getFieldValue('valor')
 
   var code = {
-    variavel: 'distanca',
+    variavel: 'distancia',
     operador: dropdown_operador,
-    valor: text_valor,
+    valor: Number(text_valor),
   }
 
   return code
@@ -80,7 +96,7 @@ Blockly.JavaScript['distancia_percorrida'] = function(block) {
   var code = {
     variavel: 'distancia_percorrida',
     operador: dropdown_operador,
-    valor: text_valor,
+    valor: Number(text_valor),
   }
 
   return code
