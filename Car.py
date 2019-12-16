@@ -7,9 +7,6 @@ import json
 import threading
 from cv2 import *
 
-# importação interna
-from stream import VideoCamera
-
 # criação do servidor
 app = Flask(__name__)
 
@@ -27,11 +24,6 @@ def getPost():
 def carAction(y):
     print(y)
     return y
-
-@app.route("/video_feed/")
-def video_feed():
-    return Response(gen(VideoCamera()),
-    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # cores
 color_bounds = {
@@ -339,12 +331,6 @@ comandos = [
 ]
 
 decode_comandos(comandos)
-
-def gen(camera):
-    while True:
-        frame = camera.get_frame()
-        yield (b'--frame\r\n'
-        b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 # execução do servidor
 app.run(port=5000,debug=False)
