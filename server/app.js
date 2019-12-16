@@ -12,6 +12,7 @@ var app = express()
 
 // parse various different custom JSON types as JSON
 app.use(bodyParser.json({ type: 'application/*+json' }))
+app.use('/tmp', express.static('/tmp'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))

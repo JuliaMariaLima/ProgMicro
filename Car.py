@@ -15,7 +15,7 @@ app = Flask(__name__)
 def getPost():
     data = request.json
     print(request.form)
-    
+
     print(data)
     decode_dados(data)
     return Response(status=200)
@@ -47,27 +47,27 @@ def exec_camera():
     while True:
         # Image
         _, image = stream.read()
-        
+
         # Black and white image
         image_bnw = cvtColor(image, COLOR_BGR2GRAY)
         image_bnw = cvtColor(image_bnw, COLOR_GRAY2BGR)
-        
+
         # HSV image
         image_hsv = cvtColor(image, COLOR_BGR2HSV)
-        
+
         # Mask
         mask = inRange(image_hsv, color_bounds[color][0], color_bounds[color][1])
-        
+
         # Contours
         contours,_ = findContours(mask, RETR_TREE, CHAIN_APPROX_SIMPLE)
-        
+
         # Max dimensions
         max_area = 0
         max_x = 0
         max_y = 0
         max_l = 0
         max_h = 0
-        
+
         # Find max dimensions
         for contour in contours:
             x, y, l, h = boundingRect(contour)
@@ -77,14 +77,14 @@ def exec_camera():
                 max_y = y
                 max_l = l
                 max_h = h
-        
+
         # Draw largest color rectangle
         rectangle(image,
                   pt1=(max_x,max_y),
                   pt2=(max_x+max_l,max_y+max_h),
                   color=color_bounds[color][2],
                   thickness=2)
-        
+
         # Decide where to go
         mid_x = int(max_x + (max_l / 2))
         image_mid_x = len(image[0])
@@ -99,10 +99,10 @@ def exec_camera():
         else:
             posica_cor = ''
             tem_cor_escolhida = False
-            
+
         # Show video stream
         imshow("Car sight", image)
-        
+
         if waitKey(1) & 0xFF == ord('q'):
             stream.release()
             destroyAllWindows()
@@ -127,7 +127,7 @@ def eEventRising(pin):
     global ecounter
     ecounter += 1
     print("E COUNTER " + str(ecounter))
-    
+
 def dEventRising(pin):
     global dcounter
     dcounter += 1
@@ -147,7 +147,7 @@ GPIO.add_event_detect(dPin, GPIO.FALLING, callback = dEventRising)
 def decode_dados(dados):
     comandos = dados['comandos']
     decode_comandos(comandos)
-    
+
 def decode_comandos(comandos):
     for comando in comandos:
         tipo = comando['tipo']
@@ -172,14 +172,14 @@ def decode_andar(comando):
     sentido = comando['sentido']
     print('andar', distancia, velocidade, sentido)
     andar(distancia, velocidade, sentido)
-    
+
 def decode_girar(comando):
     angulo = comando['angulo']
     velocidade = comando['velocidade']
     sentido = comando['sentido']
     print('girar', angulo, velocidade, sentido)
     girar(angulo, velocidade, sentido)
-    
+
 def decode_parar(comando):
     tempo = comando['tempo']
     print('parar', tempo)
@@ -189,10 +189,10 @@ def decode_condicao(comando):
     variavel = comando['variavel']
     valor = comando['valor']
     operador = comando['operador']
-    
+
     if variavel == 'posicao_cor':
         variavel = posicao_cor
-    
+
     if operador == 'igual':
         return variavel == valor
     elif operador == 'diferente':
@@ -222,7 +222,7 @@ def decode_por(comando):
     comandos = comando['comandos']
     for _ in range(0, vezes):
         decode_comandos(comandos)
-        
+
 def decode_enquanto(comando):
     condicao = comando['condicao']
     comandos = comando['comandos']
@@ -267,19 +267,19 @@ def stop():
 def moveForward(speed):
     leftWheel.forward(speed)
     rightWheel.forward(speed)
-    
+
 def moveBackward(speed):
     leftWheel.backward(speed)
     rightWheel.backward(speed)
-    
+
 def turnLeft():
     leftWheel.backward()
     rightWheel.forward()
-    
+
 def turnRight():
     leftWheel.forward()
     rightWheel.backward()
-    
+
 comandos = [
     {
         'tipo': 'parar',
@@ -333,4 +333,4 @@ comandos = [
 decode_comandos(comandos)
 
 # execução do servidor
-#app.run(port=5000,debug=False)
+# app.run(port=5000,debug=False)

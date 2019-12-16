@@ -9,6 +9,9 @@ import { Button } from 'react-bootstrap'
 import './blocks/customblocks'
 import './generator/generator'
 
+import socketIOClient from "socket.io-client";
+
+const URL = 'http://f6896f7a.ngrok.io'
 const options = {
   collapse: false,
   comments: false,
@@ -35,8 +38,22 @@ class App extends React.Component {
   state = {
     ciclos: [],
   }
+
+  constructor() {
+    super();
+    this.state = {
+      response: false,
+      endpoint: "http://127.0.0.1:9000"
+    };
+  }
+
   componentDidMount() {
-    this.simpleWorkspace.workspace.addChangeListener(this.change)
+    const { endpoint } = this.state;
+    const socket = socketIOClient(endpoint);
+    socket.on("FromAPI", data => {
+      this.setState({ response: data })
+      socket.emit('my_message', 'Hello world!');
+    });
   }
 
   generateCode = () => {
@@ -54,12 +71,7 @@ class App extends React.Component {
     })
   }
 
-  change = event => {
-    // if (event.type === 'move') {
-    //   this.ciclos = workspaceToCode(this.simpleWorkspace.workspace)
-    //   this.setState({ ciclos: this.ciclos })
-    // }
-  }
+
 
   render() {
     const props = {
@@ -79,7 +91,7 @@ class App extends React.Component {
 `,
       ...options,
     }
-
+    const { response } = this.state;
     return (
       <div className="module-border-wrap MovingGradient">
         <div className="module flex-row">
@@ -120,6 +132,13 @@ class App extends React.Component {
           </BlocklyComponent>
 
           <div className="flex flex-column items-center justify-content-around w-40">
+
+            <div style={{ textAlign: "center" }}>
+              {response
+                ? <img src={response} alt="Webcam" />
+                : <p>Loading...</p>}
+            </div>
+
             <Button size="lg" variation="primary" onClick={this.generateCode}>
               SEND
             </Button>
