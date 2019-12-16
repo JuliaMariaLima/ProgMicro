@@ -9,7 +9,7 @@ async def send_ping():
     await sio.emit('videoStream','matheus')
 
 @sio.event
-async def Movement(data):
+async def blocklyMessage(data):
     print(data)
     await sio.sleep(1)
     await send_ping()
