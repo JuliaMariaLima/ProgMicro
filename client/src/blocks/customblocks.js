@@ -119,7 +119,7 @@ var mover = {
       value: 1,
       min: 0,
       max: 10,
-      precision: 0.1,
+      precision: 0.01,
     },
   ],
   inputsInline: true,

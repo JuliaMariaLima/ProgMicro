@@ -82,9 +82,9 @@ Blockly.JavaScript['distancia'] = function(block) {
   var text_valor = block.getFieldValue('valor')
 
   var code = {
-    variavel: 'distanca',
+    variavel: 'distancia',
     operador: dropdown_operador,
-    valor: text_valor,
+    valor: Number(text_valor),
   }
 
   return code
@@ -96,7 +96,7 @@ Blockly.JavaScript['distancia_percorrida'] = function(block) {
   var code = {
     variavel: 'distancia_percorrida',
     operador: dropdown_operador,
-    valor: text_valor,
+    valor: Number(text_valor),
   }
 
   return code
