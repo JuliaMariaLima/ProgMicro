@@ -75,6 +75,29 @@ Blockly.JavaScript['distancia'] = function(block) {
 
   return code
 }
+Blockly.JavaScript['distancia_percorrida'] = function(block) {
+  var dropdown_operador = block.getFieldValue('operador')
+  var text_valor = block.getFieldValue('valor')
+
+  var code = {
+    variavel: 'distancia_percorrida',
+    operador: dropdown_operador,
+    valor: text_valor,
+  }
+
+  return code
+}
+Blockly.JavaScript['posicao_cor'] = function(block) {
+  var text_valor = block.getFieldValue('valor')
+
+  var code = {
+    variavel: 'posicao_cor',
+    operador: 'igual',
+    valor: text_valor,
+  }
+
+  return code
+}
 Blockly.JavaScript['and'] = function(block) {
   console.log(block)
   var code = blockToCode(block.childBlocks_[0])

@@ -232,6 +232,66 @@ Blockly.Blocks['distancia'] = {
     this.jsonInit(distancia)
   },
 }
+var distancia_percorrida = {
+  type: 'distancia_percorrida',
+  message0: 'Distância Percorrida %1 %2 %3 m',
+  args0: [
+    {
+      type: 'field_dropdown',
+      name: 'operador',
+      options: [
+        ['=', 'igual'],
+        ['>', 'maior que'],
+        ['<', 'menor que'],
+        ['≠\t', 'diferente'],
+      ],
+    },
+    {
+      type: 'input_dummy',
+    },
+    {
+      type: 'field_input',
+      name: 'valor',
+      text: '1',
+    },
+  ],
+  inputsInline: true,
+  output: null,
+  colour: 330,
+  tooltip: '',
+  helpUrl: '',
+}
+
+Blockly.Blocks['distancia_percorrida'] = {
+  init: function() {
+    this.jsonInit(distancia_percorrida)
+  },
+}
+var posicao_cor = {
+  type: 'posicao_cor',
+  message0: 'Posição da cor for: %1',
+  args0: [
+    {
+      type: 'field_dropdown',
+      name: 'valor',
+      options: [
+        ['esquerda', 'esquerda'],
+        ['direita', 'direita'],
+      ],
+    },
+  ],
+  inputsInline: true,
+  output: null,
+  colour: 330,
+  tooltip: '',
+  helpUrl: '',
+}
+
+Blockly.Blocks['posicao_cor'] = {
+  init: function() {
+    this.jsonInit(posicao_cor)
+  },
+}
 var and = {
   type: 'and',
   message0: '%1 e %2',

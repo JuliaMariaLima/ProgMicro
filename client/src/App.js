@@ -96,6 +96,8 @@ class App extends React.Component {
             <Block type="and" />
             <Block type="or" />
             <Block type="distancia" />
+            <Block type="distancia_percorrida" />
+            <Block type="posicao_cor" />
             <Block type="parar" />
 
             {/* <Block type="controls_ifelse" />
