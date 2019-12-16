@@ -38,7 +38,6 @@ class Path extends Component {
 
   draw = ({ tipo, duracao, velocidade, angulo }) => {
     let { ctx } = this.state
-    // console.log('drawing')
     if (tipo === 'frente') {
       this.y -= 200
       ctx.lineTo(this.x, this.y)

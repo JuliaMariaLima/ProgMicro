@@ -5,7 +5,7 @@ import logo from './logo.svg'
 
 import BlocklyComponent, { Block, Value, Field, Shadow } from './Blockly'
 
-import { translateCode } from './utils/codeUtils'
+import { translateCode, workspaceToCode } from './utils/codeUtils'
 import { Button } from 'react-bootstrap'
 
 import './blocks/customblocks'
@@ -43,10 +43,11 @@ class App extends React.Component {
   }
 
   generateCode = () => {
-    const movimentos = JSON.parse(
-      translateCode(this.simpleWorkspace.workspace.getAllBlocks())
-    )
-    console.log(this.simpleWorkspace.workspace.getTopBlocks())
+    const movimentos = workspaceToCode(this.simpleWorkspace.workspace)
+
+    console.log(movimentos)
+
+    //console.log(movimentos)
     return fetch('/sendCode/', {
       method: 'POST',
       body: JSON.stringify({ movimentos }),
@@ -57,13 +58,10 @@ class App extends React.Component {
   }
 
   change = event => {
-    if (event.type === 'move') {
-      this.ciclos = JSON.parse(
-        translateCode(this.simpleWorkspace.workspace.getAllBlocks())
-      )
-      // console.log(this.ciclos)
-      this.setState({ ciclos: this.ciclos })
-    }
+    // if (event.type === 'move') {
+    //   this.ciclos = workspaceToCode(this.simpleWorkspace.workspace)
+    //   this.setState({ ciclos: this.ciclos })
+    // }
   }
 
   render() {
@@ -79,7 +77,8 @@ class App extends React.Component {
       },
       initialXml: `
 <xml xmlns="http://www.w3.org/1999/xhtml">
-
+<block type="programa" x="100" y="100">
+</block>
 </xml>
 `,
       ...options,
@@ -93,7 +92,15 @@ class App extends React.Component {
             <Block type="girar" />
             <Block type="mover" />
             <Block type="loop" />
-            <Block type="controls_ifelse" />
+            <Block type="se" />
+            <Block type="and" />
+            <Block type="or" />
+            <Block type="distancia" />
+            <Block type="distancia_percorrida" />
+            <Block type="posicao_cor" />
+            <Block type="parar" />
+
+            {/* <Block type="controls_ifelse" />
             <Block type="logic_compare" />
             <Block type="logic_operation" />
             <Block type="controls_repeat_ext">
@@ -114,7 +121,7 @@ class App extends React.Component {
                   <Field name="VAR">text</Field>
                 </Block>
               </Value>
-            </Block>
+            </Block> */}
           </BlocklyComponent>
 
           <div className="flex flex-column items-center justify-content-around w-40">
