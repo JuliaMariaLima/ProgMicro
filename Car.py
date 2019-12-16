@@ -333,4 +333,4 @@ comandos = [
 decode_comandos(comandos)
 
 # execução do servidor
-app.run(port=5000,debug=False)
+# app.run(port=5000,debug=False)
